@@ -3,8 +3,10 @@ import React from 'react';
 export class Flat extends React.Component {
   render() {
     return(
-      <div className="card"
-        style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${this.props.img})` }} >
+      <div
+        className="card"
+        style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${this.props.img})` }}
+        id={`flat-${this.props.id}`} >
         <div className="card-category">
           {this.props.price} {this.props.currency}
         </div>
