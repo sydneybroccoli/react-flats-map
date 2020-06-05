@@ -12,6 +12,10 @@ module.exports = {
     })
   ],
   devtool: 'sourcemap',
+  devServer: {
+    disableHostCheck: true,
+    contentBase: './dist'
+  },
   mode: "development",
   module: {
     rules: [
