@@ -29,6 +29,9 @@ body {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  .active-card {
+    opacity: 0.5;
+  }
   .card {
     width: calc(50% - 10px);
     margin-right: 10px;
