@@ -2,8 +2,6 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 import { Marker } from './marker.jsx';
 
-const GOOGLEMAP_API = 'AIzaSyBPxtnQHvyp8XJuLQUWtHNRe5hdQNZ3O9w';
-
 export class GoogleMap extends React.Component {
   static defaultProps = {
     center: {
