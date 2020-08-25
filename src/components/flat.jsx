@@ -6,7 +6,7 @@ export class Flat extends React.Component {
       <div
         className="card"
         style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${this.props.img})` }}
-        id={this.props.id}
+        id={'flat-' + this.props.id}
         onClick={this.props.clickAction} >
 
         <div className="card-category">
