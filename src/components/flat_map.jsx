@@ -4,6 +4,48 @@ import GoogleMapReact from 'google-map-react';
 
 import { ActiveMarker, FlatMarker } from './marker.jsx';
 
+// FIND MAP BOUNDS
+// fit the map to bounds based on marker placement on map
+const getMapBounds = (map, maps, markers) => {
+  const bounds = new maps.LatLngBounds();
+
+  markers.forEach((marker) => {
+    bounds.extend(new maps.LatLng(
+      marker.lat,
+      marker.lng,
+    ));
+  });
+  return bounds;
+};
+
+// RESIZE/CENTER MAP BASED ON BOUNDS
+const bindResizeListener = (map, maps, bounds) => {
+  maps.event.addDomListenerOnce(map, 'idle', () => {
+    maps.event.addDomListener(window, 'resize', () => {
+      map.fitBounds(bounds);
+    });
+  });
+};
+
+// POST API LOAD TASKS
+const apiIsLoaded = (map, maps, markers) => {
+  // get bounds based on markers
+  const bounds = getMapBounds(map, maps, markers);
+  // fit map to bounds
+  map.fitBounds(bounds);
+  // bind the resize listener
+  // bindResizeListener(map, maps, bounds);
+
+  // moves map back to markers if center gets moved by user
+  map.addListener('center_changed', (e) => {
+    console.log('new center!');
+    window.setTimeout(function() {
+      map.fitBounds(bounds);
+    }, 3000);
+
+  });
+};
+
 
 export class FlatMap extends React.Component {
   // DEFAULTS
@@ -21,18 +63,9 @@ export class FlatMap extends React.Component {
       activeFlat: this.props.activeFlat,
       flats: this.props.flats
     };
-
-    // this.handleMarkerClick = this.handleMarkerClick.bind(this);
   }
 
   // FUNCTIONS
-  // create a center object with the active flats lat/lng
-  center() {
-    return {
-      lat: this.state.activeFlat.lat,
-      lng: this.state.activeFlat.lng
-    }
-  }
 
   // RENDER
   render() {
@@ -44,16 +77,11 @@ export class FlatMap extends React.Component {
             key: process.env.REACT_APP_GOOGLEMAP_API,
             language: 'en' }}
           yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, this.props.flats)}
           defaultZoom={this.props.zoom}
-          defaultCenter={this.props.center}
 
-          center={this.center()}  // variable center
+          center={this.state.center}  // variable center
           zoom={this.state.zoom}  // variable zoom
-
-          // functions
-          // onChildClick={this._onChildClick}
-          // onChildMouseEnter:{this.onChildMouseEnter}
-          // onChildMouseLeave:{this.onChildMouseLeave}
           >
 
         {this.props.flats.map( (flat, index) => {
