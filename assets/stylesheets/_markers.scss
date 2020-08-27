@@ -1,0 +1,11 @@
+.marker {
+  font-size: 2em;
+  color: black;
+  opacity: 0.75;
+
+  &.active {
+    font-size: 3em;
+    color: red;
+    opacity: 1.0;
+  }
+}

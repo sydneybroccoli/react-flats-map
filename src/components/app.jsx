@@ -1,36 +1,39 @@
 import React from 'react';
 
-import { flats as FlatsData } from '../../data/flats.js';
+import { flats } from '../../data/flats.js';
 import { FlatList } from './flat_list.jsx';
-import { GoogleMap } from './google_map.jsx';
+import { FlatMap } from './flat_map.jsx';
 
 export class App extends React.Component{
   constructor(props) {
+    // DEFAULTS
     super(props);
     this.state = {
-      flats: FlatsData,
-      activeFlat: FlatsData[1]
+      activeFlat: flats[0],
+      flats
     }
-    this.select = this.select.bind(this);
+
+    // BIND METHODS
+    this.selectFlat = this.selectFlat.bind(this);
   }
 
-  select(index) {
-    this.setState({
-      activeFlat: FlatsData[index]
-    });
-
+  selectFlat(index) {
+    this.setState({ activeFlat: flats[index] });
   }
 
   render() {
+    console.log(this.state.activeFlat)
     return(
       <div>
         <FlatList
           flats={this.state.flats}
-          selected={this.select} />
+          selectFlat={this.selectFlat}
+          activeFlat={this.state.activeFlat} />
 
         <div className="map-container">
-          <GoogleMap
+          <FlatMap
             flats={this.state.flats}
+            selectFlat={this.selectFlat}
             activeFlat={this.state.activeFlat} />
         </div>
       </div>

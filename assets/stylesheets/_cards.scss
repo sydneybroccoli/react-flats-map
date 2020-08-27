@@ -5,8 +5,9 @@
   background-position: center;
   color: white;
   position: relative;
+  opacity: 0.5;
   &.active {
-    border: 10px solid red;
+    opacity: 1.0;
   }
 }
 .card-user {
