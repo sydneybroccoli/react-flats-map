@@ -25,7 +25,7 @@ export class FlatMarker extends React.Component {
     this.setState({ active: !this.state.active });
     this.props.selectFlat(this.props.index);
   }
-  handleHover() {}
+  handleHover() { }
 
   // RENDER
   render() {

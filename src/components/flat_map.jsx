@@ -18,31 +18,17 @@ const getMapBounds = (map, maps, markers) => {
   return bounds;
 };
 
-// RESIZE/CENTER MAP BASED ON BOUNDS
-const bindResizeListener = (map, maps, bounds) => {
-  maps.event.addDomListenerOnce(map, 'idle', () => {
-    maps.event.addDomListener(window, 'resize', () => {
-      map.fitBounds(bounds);
-    });
-  });
-};
-
 // POST API LOAD TASKS
 const apiIsLoaded = (map, maps, markers) => {
   // get bounds based on markers
   const bounds = getMapBounds(map, maps, markers);
   // fit map to bounds
   map.fitBounds(bounds);
-  // bind the resize listener
-  // bindResizeListener(map, maps, bounds);
-
-  // moves map back to markers if center gets moved by user
-  map.addListener('center_changed', (e) => {
-    console.log('new center!');
+  // moves map back to markers if center/bounds change BY USER
+  map.addListener(('center_changed' || 'bounds_changed'), (e) => {
     window.setTimeout(function() {
       map.fitBounds(bounds);
     }, 3000);
-
   });
 };
 
